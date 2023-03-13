@@ -1,9 +1,21 @@
-import React, { Children } from "react";
+import React, { useState } from "react";
 
 const BlogContext = React.createContext();
 
 export const BlogProvider = ({ children }) => {
-    return <BlogContext.Provider value={22}>
+    // state variable for blog posts
+    const [blogPosts, setBlogPosts] = useState([]);
+
+    // Create helperfunction to add a blog post, and update the state
+    const addBlogPost = () => {
+        setBlogPosts([
+            ...blogPosts, 
+            { title: `Blog Post #${blogPosts.length + 1}` }
+        ]);
+    };
+    
+    // For rendering when state changes, and getting the blog posts list
+    return <BlogContext.Provider value={{ data: blogPosts, addBlogPost }}>
         {children}
     </BlogContext.Provider>
 };
