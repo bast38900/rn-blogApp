@@ -1,9 +1,11 @@
+// Start screen for the app.
+
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 import BlogContext from "../context/BlogContext";
 
 const IndexScreen = () => {
-    // Getting data from blog context, and passing it to the Flatlist component
+    // Getting data from blog context, and passing it to the Flatlist component.
     const { data, addBlogPost } = useContext(BlogContext);
 
     return (
