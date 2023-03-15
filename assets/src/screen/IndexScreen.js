@@ -16,7 +16,7 @@ import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = () => {
   // Getting data from blog context, and passing it to the Flatlist component.
-  const { state, addBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
   return (
     <>
@@ -30,7 +30,7 @@ const IndexScreen = () => {
               <Text style={styles.title}>
                 {item.title} - {item.id}
               </Text>
-              <TouchableOpacity onPress={() => console.log(item.id)}>
+              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Feather style={styles.icon} name="trash-2" />
               </TouchableOpacity>
             </View>
