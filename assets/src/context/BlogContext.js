@@ -29,6 +29,7 @@ const addBlogPost = (dispatch) => {
   };
 };
 
+// Helper function to delete a blog post
 const deleteBlogPost = (dispatch) => {
   return (id) => {
     dispatch({ type: "delete_blogpost", payload: id });
