@@ -5,6 +5,7 @@ import IndexScreen from "./assets/src/screen/IndexScreen";
 import { Provider } from "./assets/src/context/BlogContext";
 import ShowScreen from "./assets/src/screen/ShowScreen";
 import CreateScreen from "./assets/src/screen/CreateScreen";
+import EditScreen from "./assets/src/screen/EditScreen";
 
 // Add all screens to the stack, and the root screen.
 const navigator = createStackNavigator(
@@ -12,11 +13,12 @@ const navigator = createStackNavigator(
     Index: IndexScreen,
     Show: ShowScreen,
     Create: CreateScreen,
+    Edit: EditScreen,
   },
   {
     initialRouteName: "Index",
     defaultNavigationOptions: {
-      title: "Blogs",
+      title: "Blog",
     },
   }
 );
