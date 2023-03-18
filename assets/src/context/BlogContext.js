@@ -57,6 +57,7 @@ const editBlogPost = (dispatch) => {
   };
 };
 
+// Exporting createDataContext object, with the ruducer and functions, including testPost.
 export const { Context, Provider } = createDataContext(
   blogReducer,
   { addBlogPost, deleteBlogPost, editBlogPost },

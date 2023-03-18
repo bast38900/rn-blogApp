@@ -1,3 +1,6 @@
+/*  
+    Reusable form component for working with blogpost
+*/
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 

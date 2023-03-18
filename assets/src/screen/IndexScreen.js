@@ -15,7 +15,10 @@ import { Context } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
-  // Getting data from blog context, and passing it to the Flatlist component.
+  /*   
+  Getting data and delete function from blog context
+  , and passing it to the Flatlist component. 
+*/
   const { state, deleteBlogPost } = useContext(Context);
 
   return (

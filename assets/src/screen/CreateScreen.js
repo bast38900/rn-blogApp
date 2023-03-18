@@ -1,3 +1,7 @@
+/* 
+    Screen for adding a new post. 
+*/
+
 import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Context } from "../context/BlogContext";
