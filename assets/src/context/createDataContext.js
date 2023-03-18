@@ -8,7 +8,7 @@ export default (reducer, actions, initialState) => {
   // Calling the context creator function
   const Context = React.createContext();
 
-  // Setting up the provider
+  // Setting up the provider, a generic component to set up the context
   const Provider = ({ children }) => {
     // State variable and rerendering components on state change, and setting initial state.
     const [state, dispatch] = useReducer(reducer, initialState);

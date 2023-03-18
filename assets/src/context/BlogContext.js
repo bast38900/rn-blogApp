@@ -3,23 +3,17 @@
 */
 
 import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 // Adding Reducer to change state, and implement CRUD for blog post
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case "get_blogposts":
+      return action.payload;
     case "edit_blogpost":
       return state.map((blogPost) => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
       });
-    case "add_blogpost":
-      return [
-        ...state,
-        {
-          id: Math.floor(Math.random() * 99999),
-          title: action.payload.title,
-          content: action.payload.content,
-        },
-      ];
     case "delete_blogpost":
       return state.filter((blogPost) => blogPost.id !== action.payload);
     default:
@@ -27,10 +21,18 @@ const blogReducer = (state, action) => {
   }
 };
 
+// Function to get the data from the server
+const getBlogPosts = (dispatch) => {
+  return async () => {
+    const response = await jsonServer.get("/blogposts");
+    dispatch({ type: "get_blogposts", payload: response.data });
+  };
+};
+
 // Helper function to add a blog post
 const addBlogPost = (dispatch) => {
-  return (title, content, callback) => {
-    dispatch({ type: "add_blogpost", payload: { title, content } });
+  return async (title, content, callback) => {
+    await jsonServer.post("/blogposts", { title, content });
     if (callback) {
       callback();
     }
@@ -38,15 +40,10 @@ const addBlogPost = (dispatch) => {
 };
 
 // Helper function to delete a blog post
-const deleteBlogPost = (dispatch) => {
-  return (id) => {
-    dispatch({ type: "delete_blogpost", payload: id });
-  };
-};
-
-// Helper function to delete a blog post
 const editBlogPost = (dispatch) => {
-  return (id, title, content, callback) => {
+  return async (id, title, content, callback) => {
+    await jsonServer.put(`/blogposts/${id}`, { title, content });
+
     dispatch({
       type: "edit_blogpost",
       payload: { id, title, content },
@@ -57,9 +54,18 @@ const editBlogPost = (dispatch) => {
   };
 };
 
-// Exporting createDataContext object, with the ruducer and functions, including testPost.
+// Helper function to delete a blog post
+const deleteBlogPost = (dispatch) => {
+  return async (id) => {
+    await jsonServer.delete(`/blogposts/${id}`);
+
+    dispatch({ type: "delete_blogpost", payload: id });
+  };
+};
+
+// Exporting reusable createDataContext function.
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlogPost, deleteBlogPost, editBlogPost },
-  [{ title: "TestPost", content: "bla bla...", id: 1 }]
+  { getBlogPosts, addBlogPost, deleteBlogPost, editBlogPost },
+  []
 );

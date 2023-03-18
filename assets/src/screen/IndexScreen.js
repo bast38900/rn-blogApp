@@ -2,7 +2,7 @@
     Start screen for the app. 
 */
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -16,10 +16,24 @@ import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
   /*   
-  Getting data and delete function from blog context
+  Getting data and functions from blog context
   , and passing it to the Flatlist component. 
 */
-  const { state, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+
+  //Function to get getBlogPost function to run 1 time,
+  useEffect(() => {
+    getBlogPosts();
+
+    // Function to run getBlogPost, when navigating to index screen.
+    const listener = navigation.addListener("didFocus", () => {
+      getBlogPosts();
+    });
+
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   return (
     <>
